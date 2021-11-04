@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component, useState } from 'react';
-import { View, Text, StyleSheet, Dimensions, TextInput } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, TextInput, Pressable } from 'react-native';
 import Svg, { Image, Circle, ClipParh, ClipPath } from 'react-native-svg';
 import Animated, { EasingNode } from 'react-native-reanimated';
 import { TapGestureHandler, State } from 'react-native-gesture-handler';
@@ -60,7 +60,7 @@ const LoginAnimated = () => {
     });
     const bgY = interpolateNode(buttonOpacity, {
         inputRange: [0, 1],
-        outputRange: [-height / 3 - 20, 0],
+        outputRange: [-height / 3 - 70, 0],
         extrapolate: Extrapolate.CLAMP
     });
     const textInputZindex = interpolateNode(buttonOpacity, {
@@ -104,10 +104,12 @@ const LoginAnimated = () => {
             <Animated.View style={{ ...StyleSheet.absoluteFill, transform: [{ translateY: bgY }] }}>
                 <Svg height={height + 50} width={width} >
                     <ClipPath id="clip">
-                        <Circle cx={width / 2} r={height} />
+                        <Circle r={height + 50} cx={width / 2} />
                     </ClipPath>
-                    <Image href={require('../../../assets/images/bgTwo.jpg')}
-                        height={height + 50} width={width}
+                    <Image
+                        href={require('../../../assets/images/bgTwo.jpg')}
+                        width={width}
+                        height={height + 50}
                         preserveAspectRatio="xMidYMid slice"
                         clipPath="url(#clip)"
                     />
@@ -115,24 +117,24 @@ const LoginAnimated = () => {
 
             </Animated.View>
             <View style={styles.bottom}>
-                <TapGestureHandler onHandlerStateChange={onOpenButtom}>
+                <Pressable onPress={onOpenButtom}>
                     <Animated.View style={[styles.button, { opacity: buttonOpacity, transform: [{ translateY: buttonY }] }]}>
                         <Text style={styles.text} >
                             Sign In
                         </Text>
                     </Animated.View>
-                </TapGestureHandler>
+                </Pressable>
                 <Animated.View style={[styles.button, { marginTop: 10, backgroundColor: "blue", opacity: buttonOpacity, transform: [{ translateY: buttonY }] }]}>
                     <Text style={[styles.text, { color: "#fff" }]} >
                         Login
                     </Text>
                 </Animated.View>
                 <Animated.View style={{ zIndex: textInputZindex, opacity: textInputOpacity, transform: [{ translateY: textInputY }], height: height / 3, ...StyleSheet.absoluteFill, top: null, justifyContent: "center", }}>
-                    <TapGestureHandler onHandlerStateChange={onCloseButtom}>
-                        <Animated.View style={styles.closeButton}>
-                            <Animated.Text style={{ fontSize: 15, color: "black", transform: [{ rotate: concat(rotateCross, 'deg') }] }}> X </Animated.Text>
-                        </Animated.View>
-                    </TapGestureHandler>
+                    <Animated.View style={styles.closeButton}>
+                        <Pressable onPress={onCloseButtom}>
+                            <Animated.Text style={{ fontSize: 15, color: "black", fontWeight: "bold", transform: [{ rotate: concat(rotateCross, 'deg') }] }}> X </Animated.Text>
+                        </Pressable>
+                    </Animated.View>
                     <TextInput style={styles.textInput} placeholder="Username" placeholderTextColor="black" />
                     <TextInput style={styles.textInput} placeholder="Password" placeholderTextColor="black" />
                     <Animated.View style={[styles.button, { width: width - 40 }]}>
@@ -164,6 +166,7 @@ const styles = StyleSheet.create({
     },
     textInput: {
         height: 50,
+        backgroundColor: "#fff",
         borderRadius: 25,
         borderWidth: 0.5,
         marginHorizontal: 20,
