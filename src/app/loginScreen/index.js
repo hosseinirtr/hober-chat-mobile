@@ -1,9 +1,11 @@
-//import liraries
+//import libraries
 import React, { Component, useState } from 'react';
-import { View, Text, StyleSheet, Dimensions, TextInput, Pressable } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, TextInput, Pressable, StatusBar } from 'react-native';
 import Svg, { Image, Circle, ClipParh, ClipPath } from 'react-native-svg';
 import Animated, { EasingNode } from 'react-native-reanimated';
 import { TapGestureHandler, State } from 'react-native-gesture-handler';
+import { Icon } from 'react-native-elements/dist/icons/Icon';
+
 // create a component
 const {
     Value,
@@ -32,7 +34,7 @@ function runTiming(clock, value, dest) {
     };
 
     const config = {
-        duration: 1000,
+        duration: 700,
         toValue: new Value(0),
         easing: EasingNode.inOut(EasingNode.ease)
     };
@@ -51,7 +53,7 @@ function runTiming(clock, value, dest) {
         state.position
     ]);
 }
-const LoginAnimated = () => {
+const LoginAnimated = ({ navigation }) => {
     const [buttonOpacity, setButtonOpacity] = useState(new Value(1))
     const buttonY = interpolateNode(buttonOpacity, {
         inputRange: [0, 1],
@@ -80,7 +82,7 @@ const LoginAnimated = () => {
     });
     const rotateCross = interpolateNode(buttonOpacity, {
         inputRange: [0, 1],
-        outputRange: [180, 360],
+        outputRange: [0, 720],
         extrapolate: Extrapolate.CLAMP
     });
     const onOpenButtom = (event) => {
@@ -90,24 +92,20 @@ const LoginAnimated = () => {
                 setButtonOpacity(runTiming(new Clock(), 1, 0))
             )
         ])
-        // {
-        //     nativeEvent: ({ state }) =>
-        // }
-        // console.info(nativeEvent)
-        // setButtonOpacity(runTiming(new Clock(), 1, 0))
     }
     const onCloseButtom = (event) => {
         setButtonOpacity(runTiming(new Clock(), 0, 1))
     }
     return (
         <View style={styles.container}>
+            <StatusBar animated={true} backgroundColor="#fcb900" barStyle="dark-content" />
             <Animated.View style={{ ...StyleSheet.absoluteFill, transform: [{ translateY: bgY }] }}>
                 <Svg height={height + 50} width={width} >
                     <ClipPath id="clip">
                         <Circle r={height + 50} cx={width / 2} />
                     </ClipPath>
                     <Image
-                        href={require('../../../assets/images/bgTwo.jpg')}
+                        href={require('../../assets/images/bgTwo.jpg')}
                         width={width}
                         height={height + 50}
                         preserveAspectRatio="xMidYMid slice"
@@ -119,32 +117,53 @@ const LoginAnimated = () => {
             <View style={styles.bottom}>
                 <Pressable onPress={onOpenButtom}>
                     <Animated.View style={[styles.button, { opacity: buttonOpacity, transform: [{ translateY: buttonY }] }]}>
-                        <Text style={styles.text} >
+                        <Text style={[styles.text, { color: "black" }]} >
                             Sign In
                         </Text>
                     </Animated.View>
                 </Pressable>
-                <Animated.View style={[styles.button, { marginTop: 10, backgroundColor: "blue", opacity: buttonOpacity, transform: [{ translateY: buttonY }] }]}>
+                <Animated.View style={[styles.button, { marginTop: 10, backgroundColor: "#fcb900", opacity: buttonOpacity, transform: [{ translateY: buttonY }] }]}>
                     <Text style={[styles.text, { color: "#fff" }]} >
-                        Login
+                        Sign Up
                     </Text>
                 </Animated.View>
                 <Animated.View style={{ zIndex: textInputZindex, opacity: textInputOpacity, transform: [{ translateY: textInputY }], height: height / 3, ...StyleSheet.absoluteFill, top: null, justifyContent: "center", }}>
-                    <Animated.View style={styles.closeButton}>
-                        <Pressable onPress={onCloseButtom}>
+                    <Pressable onPress={onCloseButtom} style={[styles.closeButton,]}>
+                        <Animated.View >
                             <Animated.Text style={{ fontSize: 15, color: "black", fontWeight: "bold", transform: [{ rotate: concat(rotateCross, 'deg') }] }}> X </Animated.Text>
-                        </Pressable>
-                    </Animated.View>
-                    <TextInput style={styles.textInput} placeholder="Username" placeholderTextColor="black" />
-                    <TextInput style={styles.textInput} placeholder="Password" placeholderTextColor="black" />
-                    <Animated.View style={[styles.button, { width: width - 40 }]}>
-                        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
-                            Sign In
-                        </Text>
-                    </Animated.View>
+                        </Animated.View>
+                    </Pressable>
+                    <View style={styles.textWithIcon}>
+                        <View style={{ justifyContent: "flex-start" }}>
+                            <Icon
+                                reverse
+                                name='person-outline'
+                                type='ionicon'
+                            />
+                        </View>
+                        <TextInput style={styles.textInput} placeholder="USERNAME" placeholderTextColor="#ABB8C3" />
+                    </View>
+                    <View style={styles.textWithIcon}>
+                        <View style={{ justifyContent: "flex-start", }}>
+                            <Icon
+                                reverse
+                                name="keypad-outline"
+                                type='ionicon'
+                            />
+                        </View>
+                        <TextInput style={styles.textInput} placeholder="PASSWORD" placeholderTextColor="#ABB8C3" />
+                    </View>
+                    <Pressable onPress={() => navigation.navigate('Home')}
+                    >
+                        <Animated.View style={[styles.button, { width: width - 40, backgroundColor: "#fcb900" }]}>
+                            <Text style={{ fontSize: 20, fontWeight: 'bold', color: "#fff" }}>
+                                LogIn
+                            </Text>
+                        </Animated.View>
+                    </Pressable>
                 </Animated.View>
-            </View>
-        </View>
+            </View >
+        </View >
     );
 };
 
@@ -166,13 +185,16 @@ const styles = StyleSheet.create({
     },
     textInput: {
         height: 50,
-        backgroundColor: "#fff",
-        borderRadius: 25,
-        borderWidth: 0.5,
-        marginHorizontal: 20,
+        width: width * (8 / 10),
         paddingLeft: 10,
-        marginVertical: 5,
         borderColor: 'rgba(0,0,0,0.2)'
+    },
+    textWithIcon: {
+        flexDirection: "row", backgroundColor: "#fff",
+        height: 50, width: width - 30,
+        marginBottom: 10, marginHorizontal: 20,
+        alignItems: "center",
+        borderRadius: 60, shadowColor: 'black', shadowOpacity: 0.2, elevation: 2
     },
     text: {
         fontSize: 20,
@@ -197,7 +219,6 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         elevation: 2
     },
-
     image: {
         flex: 1,
         height: null, width: null
