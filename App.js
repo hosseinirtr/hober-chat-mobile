@@ -18,7 +18,6 @@ export default function App() {
           options={{
             title: 'Hober Chat',
             headerStyle: {
-
               backgroundColor: '#fcb900',
               fontFamily: "Avengero"
             },
@@ -26,6 +25,8 @@ export default function App() {
             headerTitleStyle: {
               fontWeight: 'bold',
             },
+            headerRight: () => null,
+            headerLeft: () => null
           }}
           name="Home" component={HomeScreen} />
       </Stack.Navigator>
