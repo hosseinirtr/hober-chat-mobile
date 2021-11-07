@@ -7,13 +7,13 @@ const listChat = [{
 }, {
     id: "11", image: "", firstName: "Ali", lastName: "", lastMessage: "Hi", active: false, notificationNumber: "0"
 }, {
-    id: "12", image: "", firstName: "", lastName: "", lastMessage: "", active: false, notificationNumber: "0"
+    id: "12", image: "", firstName: "Mohamad", lastName: "", lastMessage: "نه", active: false, notificationNumber: "0"
 }, {
-    id: "13", image: "", firstName: "", lastName: "", lastMessage: "", active: false, notificationNumber: "0"
+    id: "13", image: "", firstName: "Sana", lastName: "", lastMessage: "تو چه خبر؟", active: false, notificationNumber: "0"
 }, {
-    id: "14", image: "", firstName: "", lastName: "", lastMessage: "", active: false, notificationNumber: "0"
+    id: "14", image: "", firstName: "Jadi", lastName: "", lastMessage: "پروژه عالی شده فردا میبینمت", active: false, notificationNumber: "0"
 }, {
-    id: "15", image: "", firstName: "", lastName: "", lastMessage: "", active: false, notificationNumber: ""
+    id: "15", image: "", firstName: "Reza", lastName: "", lastMessage: "تکلیف های دانشگاه رو نوشتی؟", active: false, notificationNumber: "1"
 }]
 
 
