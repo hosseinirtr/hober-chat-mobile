@@ -5,6 +5,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import LoginAnimated from './src/app/loginScreen'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './src/app/Home/Home'
+import Profile from './src/app/profile/profile';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -29,6 +30,9 @@ export default function App() {
             headerLeft: () => null
           }}
           name="Home" component={HomeScreen} />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Profile" component={Profile} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -100,7 +100,7 @@ const LoginAnimated = ({ navigation }) => {
         <View style={styles.container}>
             <StatusBar animated={true} backgroundColor="#fcb900" barStyle="dark-content" />
             <Animated.View style={{ ...StyleSheet.absoluteFill, transform: [{ translateY: bgY }] }}>
-                <Svg height={height + 50} width={width} >
+                <Svg height={height + 50} width={width + 10} >
                     <ClipPath id="clip">
                         <Circle r={height + 50} cx={width / 2} />
                     </ClipPath>
@@ -219,10 +219,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.2,
         elevation: 2
     },
-    image: {
-        flex: 1,
-        height: null, width: null
-    },
+
     container: {
         flex: 1,
         backgroundColor: '#fff',

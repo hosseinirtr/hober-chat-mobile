@@ -1,67 +1,193 @@
-
-import React from 'react';
-import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar } from 'react-native';
-
-const listChat = [{
-    id: "10", image: "", firstName: "Faezeh", lastName: "", lastMessage: "سلام", active: false, notificationNumber: "1"
-}, {
-    id: "11", image: "", firstName: "Ali", lastName: "", lastMessage: "Hi", active: false, notificationNumber: "0"
-}, {
-    id: "12", image: "", firstName: "Mohamad", lastName: "", lastMessage: "نه", active: false, notificationNumber: "0"
-}, {
-    id: "13", image: "", firstName: "Sana", lastName: "", lastMessage: "تو چه خبر؟", active: false, notificationNumber: "0"
-}, {
-    id: "14", image: "", firstName: "Jadi", lastName: "", lastMessage: "پروژه عالی شده فردا میبینمت", active: false, notificationNumber: "0"
-}, {
-    id: "15", image: "", firstName: "Reza", lastName: "", lastMessage: "تکلیف های دانشگاه رو نوشتی؟", active: false, notificationNumber: "1"
-}]
-
-
-const CardList = ({ id, image, firstName, lastName, lastMessage, notificationNumber }) => (
-    <View key={id} style={{
-        flex: 1, flexDirection: "row", height: 70, borderRadius: 15, borderColor: "#ABB8C3", width: "90%", backgroundColor: '#fff', marginHorizontal: 10, marginVertical: 5, shadowOffset: { width: 2, height: 2 },
-        shadowColor: 'black', elevation: 1,
-        shadowOpacity: 0.2, alignSelf: "center", alignItems: "center",
-    }}>
-        <View id="image" style={{ flex: 1, justifyContent: "center", alignItems: "center", }}><View style={{ backgroundColor: "red", borderRadius: 25, width: 50, height: 50 }} /></View>
-        <View id="main" style={{ flex: 3, flexDirection: "column", }}>
-            <Text id="name" style={{
-                fontSize: 18, fontWeight: "bold", textAlign: "left", alignItems: "center",
-            }}>{firstName ? firstName : "" + " " + lastName ? lastName : ""}</Text>
-            <Text id="message" style={{ fontSize: 12, alignItems: "center", }}>{lastMessage}</Text>
-        </View>
-        {notificationNumber != 0 && notificationNumber ? (
-            <View id="notification" style={{ flex: 1, }}><Text style={{ textAlign: "center", alignSelf: "flex-end", marginRight: 10, color: "#fff", borderRadius: 20, backgroundColor: "#8ED1FC", width: 20, height: 20 }} >{notificationNumber}</Text></View>
-        ) : (
-            <View id="notification" style={{ flex: 1, }}><Text style={{ textAlign: "center", alignSelf: "flex-end", marginRight: 10, color: "#fff", borderRadius: 20, backgroundColor: 'transparent', width: 20, height: 20 }} ></Text></View>
-        )}
+import React from "react";
+import {
+  SafeAreaView,
+  View,
+  FlatList,
+  Text,
+  Pressable,
+  Alert,
+  Modal
+} from "react-native";
+import globalStyles from "../../Styles/GlobalStyle";
+import { AvatarStory, AvatarUser } from "../partical/AvatarUser";
+import { ChatCardList } from "../partical/ChatChard";
+const listChat = [
+  {
+    id: "10",
+    image: "",
+    firstName: "Faezeh",
+    lastName: "",
+    lastMessage: "سلام حسین",
+    active: false,
+    notificationNumber: "1",
+    isOnline: true
+  },
+  {
+    id: "11",
+    image: "",
+    firstName: "Tim Cook",
+    lastName: "",
+    lastMessage: "Hi Sir, ",
+    active: false,
+    notificationNumber: "0",
+    isOnline: true
+  },
+  {
+    id: "12",
+    image: "",
+    firstName: "Jadi",
+    lastName: "",
+    lastMessage: "پروژه عالی شده فردا میبینمت",
+    active: false,
+    notificationNumber: "0",
+    isOnline: "unknown"
+  },
+  {
+    id: "13",
+    image:
+      "https://media-exp1.licdn.com/dms/image/C4D03AQFc0VrAIBRSuA/profile-displayphoto-shrink_800_800/0/1633861173349?e=1642032000&v=beta&t=KQSDtkGelY3Ix34O9v6thoGDFoTYrwGsQLgmCsTyk8U",
+    firstName: "Reza",
+    lastName: "",
+    lastMessage: "تکلیف های دانشگاه رو نوشتی؟",
+    active: false,
+    notificationNumber: "1",
+    isOnline: true
+  },
+  {
+    id: "14",
+    image: null,
+    firstName: "Baba",
+    lastName: "",
+    lastMessage: "شب راجبش حرف میزنیم",
+    active: false,
+    notificationNumber: "0",
+    isOnline: false
+  },
+  {
+    id: "15",
+    image: "",
+    firstName: "Sami",
+    lastName: "",
+    lastMessage: "تو چه خبر؟",
+    active: false,
+    notificationNumber: "0",
+    isOnline: true
+  }
+];
+const Stories = [
+  {
+    id: "1",
+    firstName: "",
+    uri: "",
+    profileImage:
+      "https://media-exp1.licdn.com/dms/image/C4D03AQFc0VrAIBRSuA/profile-displayphoto-shrink_800_800/0/1633861173349?e=1642032000&v=beta&t=KQSDtkGelY3Ix34O9v6thoGDFoTYrwGsQLgmCsTyk8U"
+  },
+  {
+    id: "2",
+    firstName: "",
+    uri: "",
+    profileImage: ""
+  },
+  {
+    id: "3",
+    firstName: "",
+    uri: "",
+    profileImage: ""
+  },
+  {
+    id: "4",
+    firstName: "",
+    uri: "",
+    profileImage:
+      "https://media-exp1.licdn.com/dms/image/C4D03AQFc0VrAIBRSuA/profile-displayphoto-shrink_800_800/0/1633861173349?e=1642032000&v=beta&t=KQSDtkGelY3Ix34O9v6thoGDFoTYrwGsQLgmCsTyk8U"
+  },
+  {
+    id: "5",
+    firstName: "",
+    uri: "",
+    profileImage: ""
+  },
+  {
+    id: "6",
+    firstName: "",
+    uri: "",
+    profileImage:
+      "https://media-exp1.licdn.com/dms/image/C4D03AQFc0VrAIBRSuA/profile-displayphoto-shrink_800_800/0/1633861173349?e=1642032000&v=beta&t=KQSDtkGelY3Ix34O9v6thoGDFoTYrwGsQLgmCsTyk8U"
+  },
+  {
+    id: "7",
+    firstName: "",
+    uri: "",
+    profileImage: ""
+  }
+];
+// TODO: Make Two component : 1. for Avatar with Image 2. for Avatar with none Image
+const HomeScreen = ({ navigation }) => {
+  const Story = ({ data, id }) => (
+    <View
+      style={{
+        marginHorizontal: 10,
+        alignItems: "center",
+        justifyContent: "center"
+      }}
+    >
+      <Pressable
+        onLongPress={() => {
+          Alert.alert("See profile");
+          navigation.navigate("Profile");
+        }}
+        onPress={() => console.log("See Story")}
+      >
+        <AvatarStory data={data} index={id} />
+      </Pressable>
     </View>
-)
-
-const HomeScreen = () => {
-    const renderItem = ({ item, index }) => (
-        <CardList id={index} firstName={item.firstName} lastMessage={item.lastMessage} notificationNumber={item.notificationNumber} />
-    );
-
-    return (
-        <View style={styles.container}>
-            <FlatList
-                style={{ marginTop: 5 }}
-                data={listChat}
-                renderItem={renderItem}
-                keyExtractor={item => item.id}
-            />
+  );
+  const renderChat = ({ item, index }) => (
+    <ChatCardList id={index} data={item} />
+  );
+  const StoriesList = ({ item, index }) => <Story id={index} data={item} />;
+  return (
+    <SafeAreaView style={globalStyles.container}>
+      <View
+        style={{
+          height: 100,
+          marginTop: 2
+        }}
+      >
+        <Text
+          style={{
+            ...globalStyles.TitleText
+          }}
+        >
+          Stories
+        </Text>
+        <View style={{ justifyContent: "space-evenly" }}>
+          <FlatList
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            data={Stories}
+            renderItem={StoriesList}
+            keyExtractor={(item) => item.id.toString()}
+          />
         </View>
-    );
-}
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    title: {
-        fontSize: 32,
-    },
-});
-
+      </View>
+      <View style={{ flex: 1 }}>
+        <Text
+          style={{
+            ...globalStyles.TitleText,
+            marginTop: 15
+          }}
+        >
+          Messages
+        </Text>
+        <FlatList
+          style={{ marginTop: 5 }}
+          data={listChat}
+          renderItem={renderChat}
+          keyExtractor={(item) => item.id.toString()}
+        />
+      </View>
+    </SafeAreaView>
+  );
+};
 export default HomeScreen;
