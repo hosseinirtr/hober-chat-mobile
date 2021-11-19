@@ -61,3 +61,4 @@ export const listChat = [
     isOnline: true
   }
 ];
+export default listChat;
