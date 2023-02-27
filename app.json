@@ -1,11 +1,4 @@
 {
-  "expo": {
-    "name": "HoberChat",
-    "slug": "HoberChat",
-    "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
-  },
-  "name": "HoberChat"
+  "name": "Hober",
+  "displayName": "Hober"
 }
