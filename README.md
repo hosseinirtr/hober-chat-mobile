@@ -1,4 +1,4 @@
-##  🚀 Hober Chat - Chat Manager for Mobile 📱
+#  🚀 Hober Chat - Chat Manager for Mobile 📱
 _Lovely and Quickly Chat app - This repo is for Mobile Devices_,
 Hober Chat is a chat manager app built with React Native for mobile devices, and powered by Django DRF and WebSocket for the backend. With Hober Chat, you can send text messages to your friends, and soon you will be able to send photos, GIFs, and even upload stories!
 
