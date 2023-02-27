@@ -24,9 +24,7 @@ npm i
 ```sh
 npm start
 ```
-> **Note:** If you first time to run this app in your divice you moust install it first.
->        press _a_ to install android and press _i_ install ios.
->        if you got error make sure your device , listed in adb devices.
+> **Note:** Note: If you're running this app for the first time on your device, you must install it first. Press 'a' to install Android or 'i' to install iOS. If you encounter any errors, make sure your device is listed in adb devices.
 
 
 ## Sponsorship
