@@ -22,7 +22,7 @@ npm i
 ```sh
 npm start
 ```
-> **Note:** Note: If you're running this app for the first time on your device, you must install it first. Press 'a' to install Android or 'i' to install iOS. If you encounter any errors, make sure your device is listed in adb devices.
+> **Note:** If you're running this app for the first time on your device, you must install it first. Press 'a' to install Android or 'i' to install iOS. If you encounter any errors, make sure your device is listed in adb devices.
 
 
 ## Sponsorship
