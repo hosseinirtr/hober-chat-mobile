@@ -1,40 +1,13 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  View,
-  FlatList,
-  Text,
-  Pressable,
-  Alert,
-  Modal,
-} from 'react-native';
+import {SafeAreaView, View, FlatList, Text} from 'react-native';
 import globalStyles from '../../Styles/GlobalStyle';
 import listChat from '../FakeData/ChatList';
 import {Stories} from '../FakeData/Stories';
-import {AvatarStory} from '../partical/AvatarUser';
 import {ChatCardList} from '../partical/ChatChard';
+import Story from '../partical/story/Story';
 
 // TODO: Make Two component : 1. for Avatar with Image 2. for Avatar with none Image
 const HomeScreen = ({navigation}) => {
-  const Story = ({data, id}) => (
-    <View
-      style={{
-        marginHorizontal: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}>
-      <Pressable
-        onLongPress={() => {
-          Alert.alert('See profile');
-          navigation.navigate('Profile');
-        }}
-        onPress={() => console.log('See Story')}>
-        <AvatarStory data={data} index={id} />
-      </Pressable>
-    </View>
-  );
-  const renderChat = ({item, index}) => <ChatCardList id={index} data={item} />;
-  const StoriesList = ({item, index}) => <Story id={index} data={item} />;
   return (
     <SafeAreaView style={globalStyles.container}>
       <View
@@ -53,7 +26,7 @@ const HomeScreen = ({navigation}) => {
             horizontal={true}
             showsHorizontalScrollIndicator={false}
             data={Stories}
-            renderItem={StoriesList}
+            renderItem={({item, index}) => <Story id={index} data={item} />}
             keyExtractor={item => item.id.toString()}
           />
         </View>
@@ -69,7 +42,9 @@ const HomeScreen = ({navigation}) => {
         <FlatList
           style={{marginTop: 5}}
           data={listChat}
-          renderItem={renderChat}
+          renderItem={({item, index}) => (
+            <ChatCardList id={index} data={item} />
+          )}
           keyExtractor={item => item.id.toString()}
         />
       </View>
